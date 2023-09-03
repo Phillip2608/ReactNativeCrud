@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
-import Users from "../data/Users";
-import { Button, ListItem } from "@rneui/themed";
-import { Avatar } from "@rneui/base";
-import { Feather } from "@expo/vector-icons";
+import { Button, ListItem, Avatar, Icon } from "@rneui/themed";
+import { useContext } from "react";
+import UsersContext from "../context/UsersContext";
 
 export default function UserList(props) {
+  const { state } = useContext(UsersContext);
+
   function confirmUserDelete(user) {
     Alert.alert("Excluir usuário", "Deseja excluir o usuário do sistema?", [
       {
@@ -25,12 +26,12 @@ export default function UserList(props) {
         <Button
           onPress={() => props.navigation.navigate("UserForm", user)}
           type="clear"
-          icon={<Feather name="edit" size={32} color="orange" />}
+          icon={<Icon name="edit" size={32} color="orange" />}
         />
         <Button
           onPress={() => confirmUserDelete(user)}
           type="clear"
-          icon={<Feather name="trash-2" size={32} color="red" />}
+          icon={<Icon name="delete" size={32} color="red" />}
         />
       </>
     );
@@ -55,7 +56,7 @@ export default function UserList(props) {
   return (
     <View>
       <FlatList
-        data={Users}
+        data={state.Users}
         keyExtractor={(user) => user.id.toString()}
         renderItem={getUserItem}
       />

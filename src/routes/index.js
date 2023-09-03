@@ -1,10 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import StackRoutes from "./stack.routes";
+import { UsersProvider } from "../context/UsersContext";
 
 export default function Routes() {
   return (
-    <NavigationContainer>
-      <StackRoutes />
-    </NavigationContainer>
+    <UsersProvider>
+      <NavigationContainer>
+        <StackRoutes />
+      </NavigationContainer>
+    </UsersProvider>
   );
 }
